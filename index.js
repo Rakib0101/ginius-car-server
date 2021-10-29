@@ -23,7 +23,8 @@ async function run() {
         await client.connect()
         console.log('connect to database')
         const database = client.db("HikingTours");
-        const hotelList = database.collection("HikingTours");
+        const hotelList = database.collection("hotelList");
+        console.log(hotelList);
 
         //GET API
         app.get('/hotels', async (req, res) => {
