@@ -22,8 +22,8 @@ async function run() {
     try {
         await client.connect()
         console.log('connect to database')
-        const database = client.db("giniusCarServices");
-        const servicesCollection = database.collection("servicesCollection");
+        const database = client.db("HikingTours");
+        const hotelList = database.collection("HikingTours");
 
         //GET API
         app.get('/hotels', async (req, res) => {
@@ -31,32 +31,18 @@ async function run() {
             const hotels = await cursor.toArray()
             res.send(hotels)
         })
-        //GET Single API
-        app.get('/services/:id', async (req, res) => {
-            const id = req.params.id;
-            console.log('getting the id',id);
-            const query = { _id: ObjectId(id) }
-            const service = await servicesCollection.findOne(query)
-            res.json(service)
-        })
+        
 
         //POST API
-        app.post('/services', async (req, res) => {
-            const service = req.body
+        app.post('/hotels', async (req, res) => {
+            const hotels = req.body
             console.log('hit the post', service);
-            const result = await servicesCollection.insertOne(service)
+            const result = await hotelList.insertOne(hotels)
             console.log(result);
             res.json(result)
-
         })
 
-        //Delete API
-        app.delete('/services/:id', async (req, res) => {
-            const id = req.params.id
-            const query = { _id: ObjectId(id) }
-            const result = await servicesCollection.deleteOne(query)
-            res.json(result)
-        })
+        
     }
     finally {
         // await client.close()
