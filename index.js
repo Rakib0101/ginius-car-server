@@ -20,30 +20,56 @@ const client = new MongoClient(uri, {
 
 async function run() {
     try {
-        await client.connect()
-        console.log('connect to database')
-        const database = client.db("HikingTours");
-        const hotelList = database.collection("hotelList");
-        console.log(hotelList);
+        await client.connect();
+        console.log("connect to database");
+        const database1 = client.db("HikingTours");
+        const hotelList = database1.collection("hotelList");
 
-        //GET API
-        app.get('/hotels', async (req, res) => {
-            const cursor = hotelList.find({})
-            const hotels = await cursor.toArray()
-            res.send(hotels)
-        })
+        const database2 = client.db("HikingTours");
+        const tourList = database2.collection("tourList");
+
+        const database3 = client.db("HikingTours");
+        const services = database3.collection("services");
+
+        const database4 = client.db("HikingTours");
+        const offers = database3.collection("offers");
         
+        //get api for hotel
+        app.get("/hotels", async (req, res) => {
+            const cursor = hotelList.find({});
+            const hotels = await cursor.toArray();
+            res.send(hotels);
+        });
+
+        //get api for tour
+        app.get("/tours", async (req, res) => {
+            const cursor = tourList.find({});
+            const tours = await cursor.toArray();
+            res.send(tours);
+        });
+
+        //get api for services
+        app.get("/services", async (req, res) => {
+            const cursor = services.find({});
+            const service = await cursor.toArray();
+            res.send(service);
+        });
+
+        //get api for offers
+        app.get("/services", async (req, res) => {
+            const cursor = offers.find({});
+            const offer = await cursor.toArray();
+            res.send(offer);
+        });
 
         //POST API
-        app.post('/hotels', async (req, res) => {
-            const hotels = req.body
-            console.log('hit the post', service);
-            const result = await hotelList.insertOne(hotels)
+        app.post("/hotels", async (req, res) => {
+            const hotels = req.body;
+            console.log("hit the post", service);
+            const result = await hotelList.insertOne(hotels);
             console.log(result);
-            res.json(result)
-        })
-
-        
+            res.json(result);
+        });
     }
     finally {
         // await client.close()
