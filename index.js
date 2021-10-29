@@ -26,10 +26,10 @@ async function run() {
         const servicesCollection = database.collection("servicesCollection");
 
         //GET API
-        app.get('/services', async (req, res) => {
-            const cursor = servicesCollection.find({})
-            const services = await cursor.toArray()
-            res.send(services)
+        app.get('/hotels', async (req, res) => {
+            const cursor = hotelList.find({})
+            const hotels = await cursor.toArray()
+            res.send(hotels)
         })
         //GET Single API
         app.get('/services/:id', async (req, res) => {
