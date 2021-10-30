@@ -62,6 +62,15 @@ async function run() {
             res.send(offer);
         });
 
+        //get single api for offers
+        app.get("/offers/:id", async (req, res) => {
+            const id = req.params.id;
+            console.log("getting the id", id);
+            const query = { _id: ObjectId(id) };
+            const offer = await offers.findOne(query);
+            res.json(offer);
+        });
+
         //post api for offers
         app.post("/offers", async (req, res) => {
             const offer = req.body;
