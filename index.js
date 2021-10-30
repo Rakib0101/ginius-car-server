@@ -32,7 +32,7 @@ async function run() {
         const services = database3.collection("services");
 
         const database4 = client.db("HikingTours");
-        const offers = database3.collection("offers");
+        const offers = database4.collection("offers");
 
         //get api for hotel
         app.get("/hotels", async (req, res) => {
@@ -62,11 +62,11 @@ async function run() {
             res.send(offer);
         });
 
-        //POST API
-        app.post("/hotels", async (req, res) => {
-            const hotels = req.body;
-            console.log("hit the post", service);
-            const result = await hotelList.insertOne(hotels);
+        //post api for offers
+        app.post("/offers", async (req, res) => {
+            const offer = req.body;
+            console.log("hit the post", offer);
+            const result = await offers.insertOne(offer);
             console.log(result);
             res.json(result);
         });
