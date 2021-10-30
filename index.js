@@ -34,6 +34,9 @@ async function run() {
         const database4 = client.db("HikingTours");
         const offers = database4.collection("offers");
 
+        const database5 = client.db("HikingTours");
+        const orders = database5.collection("orders");
+        
         //get api for hotel
         app.get("/hotels", async (req, res) => {
             const cursor = hotelList.find({});
@@ -76,6 +79,15 @@ async function run() {
             const offer = req.body;
             console.log("hit the post", offer);
             const result = await offers.insertOne(offer);
+            console.log(result);
+            res.json(result);
+        });
+
+        //post api for orders
+        app.post("/orders", async (req, res) => {
+            const order = req.body;
+            console.log("hit the post", order);
+            const result = await orders.insertOne(order);
             console.log(result);
             res.json(result);
         });
