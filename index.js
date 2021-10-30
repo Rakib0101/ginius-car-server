@@ -36,7 +36,7 @@ async function run() {
 
         const database5 = client.db("HikingTours");
         const orders = database5.collection("orders");
-        
+
         //get api for hotel
         app.get("/hotels", async (req, res) => {
             const cursor = hotelList.find({});
@@ -63,6 +63,13 @@ async function run() {
             const cursor = offers.find({});
             const offer = await cursor.toArray();
             res.send(offer);
+        });
+
+        //get api for orders
+        app.get("/orders", async (req, res) => {
+            const cursor = orders.find({});
+            const order = await cursor.toArray();
+            res.send(order);
         });
 
         //get single api for offers
